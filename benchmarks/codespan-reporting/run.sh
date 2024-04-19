@@ -15,8 +15,10 @@ echo "Co"
 echo "\`\`\`shell
 // Comparison using 'hyperfine' 1
 $(hyperfine -i "bin-trunk" "bin-fork")
+
 // Comparison using 'hyperfine' 2
 $(hyperfine -i "bin-trunk" "bin-fork")
+
 // Comparison using 'hyperfine' 3
 $(hyperfine -i "bin-trunk" "bin-fork")
 

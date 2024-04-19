@@ -1,3 +1,5 @@
+name: "Run single benchmark"
+
 on:
   workflow_call:
     inputs:
@@ -63,3 +65,4 @@ jobs:
           name: artifacts-${{ matrix.path }}
           path: benchmarks/${{ matrix.path }}/${{ env.ARTIFACTS_FOLDER }}
           retention-days: 7
+          if-no-files-found: ignore
