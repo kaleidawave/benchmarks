@@ -13,5 +13,4 @@ thousands = "0.2.0"
 [[bin]]
 name = "codespan-reporting-benchmark"
 path = "main.rs"
-[patch.crates-io]
-codespan-reporting = { git = 'https://github.com/kaleidawave/codespan.git', branch = 'static-dispatch-writecolor' }
+
