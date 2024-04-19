@@ -5,7 +5,8 @@ version = 3
 [[package]]
 name = "codespan-reporting"
 version = "0.11.1"
-source = "git+https://github.com/kaleidawave/codespan.git?branch=static-dispatch-writecolor#ba6851bbcac82f85e0d103bfffa89142cc66fac5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3538270d33cc669650c4b093848450d380def10c331d38c768e34cac80576e6e"
 dependencies = [
  "termcolor",
  "unicode-width",

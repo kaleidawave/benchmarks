@@ -47,5 +47,5 @@ fn main() {
 
     let duration = now.elapsed().as_micros().separate_with_commas();
     let on = env!("CURRENT_TARGET");
-    println!("Printing diagnostics in {duration}µs (on {on})");
+    println!("Printing {count} diagnostics in {duration}µs (on {on})");
 }
