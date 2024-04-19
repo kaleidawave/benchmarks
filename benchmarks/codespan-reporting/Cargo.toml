@@ -1,0 +1,17 @@
+[package]
+name = "codespan-reporting-benchmark"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+codespan-reporting = "0.11.1"
+thousands = "0.2.0"
+
+[[bin]]
+name = "codespan-reporting-benchmark"
+path = "main.rs"
+[patch.crates-io]
+codespan-reporting = { git = 'https://github.com/kaleidawave/codespan.git', branch = 'static-dispatch-writecolor' }
