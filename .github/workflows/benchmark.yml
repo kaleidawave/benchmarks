@@ -45,10 +45,14 @@ jobs:
           key: ${{ runner.os }}-${{ hashFiles('**/Cargo.lock', 'run.sh') }}
 
       - run: mkdir -p ${{ env.ARTIFACTS_FOLDER }}
-      - name: Make executable
+      - name: Make executables executable
         run: |
-          # run.sh might not be executable
+          # run.sh and setup.sh might not be executable
           chmod +x run.sh
+          chmod +x setup.sh
+
+      - name: Run setup
+        run: ./setup.sh
 
       - name: Run benchmark
         run: ./run.sh
