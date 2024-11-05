@@ -1,8 +1,10 @@
+name: Run benchmarks
+
 on:
   workflow_call:
     inputs:
       benchmarks:
-        description: "paths to benchmarks, comma seperated"
+        description: "paths to benchmarks, JSON array format"
         type: string
         required: true
 
