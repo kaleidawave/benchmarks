@@ -1,3 +1,5 @@
+name: Run benchmark
+
 on:
   workflow_call:
     inputs:
