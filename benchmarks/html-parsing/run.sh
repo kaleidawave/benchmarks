@@ -1,14 +1,15 @@
 echo "::group::Setup"
 
 gh release download -R denoland/deno -p "deno-x86_64-unknown-linux-gnu.*"
-ls
 unzip deno-x86_64-unknown-linux-gnu.zip
-ls -R .
-mv deno-x86_64-unknown-linux-gnu/deno deno
 pwd >> "$GITHUB_PATH"
 ./deno install
-curl https://www.bbc.co.uk/news > corpus.html
+curl https://www.bbc.co.uk/news > ./corpus.html
 
+echo "::endgroup::"
+
+echo "::group::LS"
+ls
 echo "::endgroup::"
 
 output="### Performance output
