@@ -1,0 +1,5 @@
+{
+  "imports": {
+    "@bengineering/lightml": "jsr:@bengineering/lightml@^0.0.2"
+  }
+}
