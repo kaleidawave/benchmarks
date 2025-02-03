@@ -1,9 +1,0 @@
-{
-    "devDependencies": {
-        "@types/node": "^22.10.10",
-        "@types/deno": "^2.0.0",
-        "@worker-tools/html-rewriter": "^0.1.0-pre.19",
-        "cheerio": "^1.0.0",
-        "happy-dom": "^16.7.1"
-    }
-}

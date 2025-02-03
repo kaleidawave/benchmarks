@@ -15,6 +15,6 @@ echo "::endgroup::"
 output="### Performance output
 
 \`\`\`shell
-$(./deno bench benchmark.ts)
+$(./deno bench --no-check -A benchmark.ts)
 \`\`\`"
 echo output >> $GITHUB_STEP_SUMMARY

@@ -1,5 +1,9 @@
 {
   "imports": {
-    "@bengineering/lightml": "jsr:@bengineering/lightml@^0.0.2"
+    "@bengineering/lightml": "jsr:@bengineering/lightml@^0.0.2",
+    "@types/node": "npm:@types/node@^22.10.10",
+    "@types/deno": "npm:@types/deno@^2.0.0",
+    "cheerio": "npm:cheerio@^1.0.0",
+    "happy-dom": "npm:happy-dom@^16.7.1"
   }
 }

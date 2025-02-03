@@ -4,7 +4,6 @@
     "jsr:@bengineering/lightml@^0.0.2": "0.0.2",
     "npm:@types/deno@2": "2.0.0",
     "npm:@types/node@^22.10.10": "22.10.10",
-    "npm:@worker-tools/html-rewriter@~0.1.0-pre.19": "0.1.0-pre.19",
     "npm:cheerio@1": "1.0.0",
     "npm:happy-dom@^16.7.1": "16.7.2"
   },
@@ -14,15 +13,6 @@
     }
   },
   "npm": {
-    "@stardazed/streams-compression@1.0.0": {
-      "integrity": "sha512-SQCiwxdIVJ5xxUBYptN+fc+tJpSDbxQuJ0+3u2SmHjIzr6JIRZ28AVFtFnGy6x6j3UBlaLx73w9rC6UAFxnd1g==",
-      "dependencies": [
-        "@stardazed/zlib"
-      ]
-    },
-    "@stardazed/zlib@1.0.1": {
-      "integrity": "sha512-MS6PCYiRNJ32c69+3NPyL+bu7LpiFDvMcBXnlhQnF8CKMG0R/xRVCCo422NPkQ0+Cox3xKpk5Lc1LfWFS4b3cw=="
-    },
     "@types/deno@2.0.0": {
       "integrity": "sha512-O9/jRVlq93kqfkl4sYR5N7+Pz4ukzXVIbMnE/VgvpauNHsvjQ9iBVnJ3X0gAvMa2khcoFD8DSO7mQVCuiuDMPg=="
     },
@@ -31,16 +21,6 @@
       "dependencies": [
         "undici-types"
       ]
-    },
-    "@worker-tools/html-rewriter@0.1.0-pre.19": {
-      "integrity": "sha512-IUbEZwvSdp8vtaB1LAZ/sBRJGNycd9a8cbkqO05rMEPm5MC59Sb+wiGCWaaRXrwQLDAyWeod4QC/q0TuSUI5EA==",
-      "dependencies": [
-        "@stardazed/streams-compression",
-        "@worker-tools/resolvable-promise"
-      ]
-    },
-    "@worker-tools/resolvable-promise@0.2.0-pre.6": {
-      "integrity": "sha512-+5RcuruCLB/P3FYYb376RgyImXaq9BBQoOskUbgPyNK3O0AXPakrXUj1EELv+lcnUSdFws/ufdrrWODLJyoTmg=="
     },
     "boolbase@1.0.0": {
       "integrity": "sha512-JZOSA7Mo9sNGB8+UjSgzdLtokWAky1zbztM3WRLCbZ70/3cTANmQmOdR7y2g+J0e2WXywy1yS468tY+IruqEww=="
@@ -194,16 +174,11 @@
   },
   "workspace": {
     "dependencies": [
-      "jsr:@bengineering/lightml@^0.0.2"
-    ],
-    "packageJson": {
-      "dependencies": [
-        "npm:@types/deno@2",
-        "npm:@types/node@^22.10.10",
-        "npm:@worker-tools/html-rewriter@~0.1.0-pre.19",
-        "npm:cheerio@1",
-        "npm:happy-dom@^16.7.1"
-      ]
-    }
+      "jsr:@bengineering/lightml@^0.0.2",
+      "npm:@types/deno@2",
+      "npm:@types/node@^22.10.10",
+      "npm:cheerio@1",
+      "npm:happy-dom@^16.7.1"
+    ]
   }
 }
