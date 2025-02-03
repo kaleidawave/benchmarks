@@ -8,13 +8,12 @@ curl https://www.bbc.co.uk/news > ./corpus.html
 
 echo "::endgroup::"
 
-echo "::group::LS"
-ls
-echo "::endgroup::"
+deno bench --no-check -A benchmark.ts
 
 output="### Performance output
 
 \`\`\`shell
-$(./deno bench --no-check -A benchmark.ts)
+$(deno bench --no-check -A benchmark.ts)
 \`\`\`"
-echo output >> $GITHUB_STEP_SUMMARY
+
+echo $output >> $GITHUB_STEP_SUMMARY
