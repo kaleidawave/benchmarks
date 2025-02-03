@@ -10,6 +10,9 @@ echo "::endgroup::"
 
 ./deno bench --no-check -A benchmark.ts
 
+echo "::debug::Run benchmark"
+
+export NO_COLOR=1
 CB='```'
 OUTPUT="### Performance output
 
