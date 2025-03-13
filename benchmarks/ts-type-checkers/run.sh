@@ -4,9 +4,9 @@ export NO_COLOR=1
 echo "## Example file `demo.ts`
 
 <details>
-<summary>Output</summary>
+<summary>Content</summary>
 
-\`\`\`
+\`\`\`ts
 $(cat demo.ts)
 \`\`\`
 </details>
@@ -41,27 +41,15 @@ echo "::group::Run benchmarks"
 
 echo "## Benchmark files" >> $GITHUB_STEP_SUMMARY
 
-./tsc-go/built/local/tsgo --help
-./tsc-go/built/local/tsgo tsc --help
-
-hyperfine -i \
-  './ezno/target/release/ezno check ./demo.ts' \
-  './tsc-go/built/local/tsgo tsc -skipLibCheck ./demo.ts' \
-  'tsc --pretty --skipLibCheck --noEmit --jsx preserve ./demo.ts'
-
-hyperfine -i \
-  './ezno/target/release/ezno check ./large.ts' \
-  './tsc-go/built/local/tsgo tsc -skipLibCheck ./large.ts' \
-  'tsc --pretty --skipLibCheck --noEmit --jsx preserve ./large.ts'
-
 # Ezno and TSC
 echo "##### `demo.ts`
 
 \`\`\`
 $(hyperfine -i \
   './ezno/target/release/ezno check ./demo.ts' \
-  './tsc-go/built/local/tsgo tsc -skipLibCheck ./demo.ts' \
-  'tsc --pretty --skipLibCheck --noEmit --jsx preserve ./demo.ts'
+  './tsc-go/built/local/tsgo tsc -skipLibCheck -pretty -noEmit ./demo.ts' \
+  './tsc-go/built/local/tsgo tsc -skipLibCheck -pretty -noEmit -singleThreaded ./demo.ts' \
+  'tsc --pretty --skipLibCheck --noEmit ./demo.ts'
 )
 \`\`\`
 
@@ -70,8 +58,9 @@ $(hyperfine -i \
 \`\`\`
 $(hyperfine -i \
   './ezno/target/release/ezno check ./large.ts' \
-  './tsc-go/built/local/tsgo tsc -skipLibCheck ./large.ts' \
-  'tsc --pretty --skipLibCheck --noEmit --jsx preserve ./large.ts'
+  './tsc-go/built/local/tsgo tsc -skipLibCheck -pretty -noEmit ./large.ts' \
+  './tsc-go/built/local/tsgo tsc -skipLibCheck -pretty -noEmit -singleThreaded ./large.ts' \
+  'tsc --pretty --skipLibCheck --noEmit ./large.ts'
 )
 \`\`\`
 " >> $GITHUB_STEP_SUMMARY
@@ -79,9 +68,21 @@ $(hyperfine -i \
 ### Valgrind
 valgrind --log-file="ezno-mem.txt" ./ezno/target/release/ezno check ./demo.ts
 valgrind --log-file="tsc-go-mem.txt" ./tsc-go/built/local/tsgo tsc -skipLibCheck ./demo.ts
-valgrind --log-file="tsc-mem.txt" tsc --pretty --skipLibCheck --noEmit --jsx preserve ./demo.ts
+valgrind --log-file="tsc-mem.txt" tsc --pretty --skipLibCheck --noEmit ./demo.ts
 
 echo "## Memory usage
+
+<details>
+<summary>Comparison</summary>
+
+\`\`\`
+$(./incredible-serious-memory-benchmark-tool './ezno/target/release/ezno check ./large.ts' \
+  './tsc-go/built/local/tsgo tsc -skipLibCheck ./large.ts' \
+  'tsc --pretty --skipLibCheck --noEmit ./large.ts')
+\`\`\`
+</details>
+
+Valgrind
 
 <details>
 <summary>ezno memory</summary>

@@ -43,7 +43,10 @@ jobs:
             ~/.cargo/registry/cache/
             ~/.cargo/git/db/
             ~/home/linuxbrew/
-            target/
+            **/target/release/*
+            **/examples/*
+            **/built/local/*
+            **/Cargo.toml
           key: ${{ runner.os }}-${{ hashFiles('**/Cargo.lock', 'run.sh') }}
 
       - run: mkdir -p ${{ env.ARTIFACTS_FOLDER }}

@@ -3,6 +3,9 @@ echo "::group::Get tools"
 brew install hyperfine
 sudo apt-get install valgrind
 
+gh release download -R andrewrk/poop --pattern 'x86-linux-*' -o incredible-serious-memory-benchmark-tool
+chmod +x incredible-serious-memory-benchmark-tool
+
 echo "::endgroup::"
 
 # ---
