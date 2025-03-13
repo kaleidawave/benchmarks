@@ -3,7 +3,7 @@ echo "::group::Get tools"
 brew install hyperfine
 sudo apt-get install valgrind
 
-gh release download -R andrewrk/poop --pattern 'x86-linux-*' -o incredible-serious-memory-benchmark-tool
+gh release download -R andrewrk/poop -p 'x86-linux-*' -O incredible-serious-memory-benchmark-tool
 chmod +x incredible-serious-memory-benchmark-tool
 
 echo "::endgroup::"
@@ -31,8 +31,6 @@ fi
 
 cargo build --manifest-path ezno/Cargo.toml --release --bin ezno
 ./ezno/target/release/ezno info
-
-date
 
 # and new parser
 # git clone https://github.com/kaleidawave/ezno.git ezno-next -b merge-lexer
@@ -99,6 +97,9 @@ cargo run --manifest-path ezno/Cargo.toml \
     --out ./large.ts
 
 cp ./large.ts $ARTIFACTS_FOLDER
+
+# For some reason
+tsc --init
 
 # # Simple
 # echo "const x: string = 4;" >> simple.tsx

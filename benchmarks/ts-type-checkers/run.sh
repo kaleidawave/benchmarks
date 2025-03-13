@@ -1,7 +1,7 @@
 NO_COLOR=1
 export NO_COLOR=1
 
-echo "## Example file `demo.ts`
+echo "## Example file \`demo.ts\`
 
 <details>
 <summary>Content</summary>
@@ -42,10 +42,10 @@ echo "::group::Run benchmarks"
 echo "## Benchmark files" >> $GITHUB_STEP_SUMMARY
 
 # Ezno and TSC
-echo "##### `demo.ts`
+echo "##### \`demo.ts\`
 
 \`\`\`
-$(hyperfine -i \
+$(hyperfine -w 10 -i \
   './ezno/target/release/ezno check ./demo.ts' \
   './tsc-go/built/local/tsgo tsc -skipLibCheck -pretty -noEmit ./demo.ts' \
   './tsc-go/built/local/tsgo tsc -skipLibCheck -pretty -noEmit -singleThreaded ./demo.ts' \
@@ -53,10 +53,10 @@ $(hyperfine -i \
 )
 \`\`\`
 
-##### `large.ts`
+##### \`large.ts\`
 
 \`\`\`
-$(hyperfine -i \
+$(hyperfine -w 10 -i \
   './ezno/target/release/ezno check ./large.ts' \
   './tsc-go/built/local/tsgo tsc -skipLibCheck -pretty -noEmit ./large.ts' \
   './tsc-go/built/local/tsgo tsc -skipLibCheck -pretty -noEmit -singleThreaded ./large.ts' \
