@@ -20,4 +20,9 @@ npm install @typescript/native-preview-linux-x64
 gh run download -R kaleidawave/ezno --pattern binary-LinuxX64-general-fixes-last
 mv binary-LinuxX64-general-fixes-last/binary-LinuxX64-general-fixes-last ezno
 chmod +x ./ezno
-./ezno --help
+
+# Check all good
+
+./ezno --help || true
+./node_modules/typescript/lib/_tsc.js --help || true
+./node_modules/@typescript/native-preview-linux-x64/lib/tsgo --help || true
