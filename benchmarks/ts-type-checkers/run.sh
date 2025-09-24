@@ -1,54 +1,40 @@
-# Install hyperfine
-brew install hyperfine
+echo "ezno demo"
 
-# Setup tools
-echo "::group::Build STC"
-git clone https://github.com/dudykr/stc stc
-rustup toolchain install nightly
-cargo +nightly build --release --manifest-path stc/crates/stc/Cargo.toml
+./ezno check demo.tsx --timings || true
 
-./stc/target/release/stc --help
-echo "::endgroup::"
+echo "ezno demo10"
 
-npm install -g oxidation-compiler@latest
-npm install -g typescript
+./ezno check demo10.tsx --timings || true
 
-# Get demo.ts
-echo "::group::Get demo.ts"
-curl https://gist.githubusercontent.com/kaleidawave/5dcb9ec03deef1161ebf0c9d6e4b88d8/raw/26c26e908a7c6b79a2e93627f1fefa7ffccbd389/demo.ts > demo.ts
-echo "::endgroup::"
+echo "typescript (node) demo"
 
-echo "::group::Run tools"
+node ./node_modules/typescript/lib/_tsc.js --noEmit --jsx preserve --skipLibCheck --diagnostics demo.tsx || true
 
-echo "#### Example script" >> $GITHUB_STEP_SUMMARY
-echo "\`\`\`ts" >> $GITHUB_STEP_SUMMARY
-cat demo.ts >> $GITHUB_STEP_SUMMARY
-echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+echo "typescript (node) demo10"
 
-function run_tool {
-    echo "#### $1" >> $GITHUB_STEP_SUMMARY
-    echo "\`\`\`shell" >> $GITHUB_STEP_SUMMARY
-    OUTPUT="$(eval "$2" 2>&1 | sed $'s/\e\\[[0-9;:]*[a-zA-Z]//g')"
-    echo "$OUTPUT" >> $GITHUB_STEP_SUMMARY
-    echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
-} 
+node ./node_modules/typescript/lib/_tsc.js --noEmit --jsx preserve --skipLibCheck --diagnostics demo10.tsx || true
 
-run_tool "Ezno checker with Oxc" "oxidation-compiler check demo.ts "
-run_tool "TSC" "tsc --pretty demo.ts"
-run_tool "STC" "./stc/target/release/stc test demo.ts"
-echo "::endgroup::"
+echo "typescript (tsgo) demo"
 
-# Run benchmark
-echo "#### Hyperfine speed tests" >> $GITHUB_STEP_SUMMARY
+./node_modules/@typescript/native-preview-linux-x64/lib/tsgo --noEmit --jsx preserve --skipLibCheck --diagnostics demo.tsx || true
 
-echo "\`\`\`shell">> $GITHUB_STEP_SUMMARY
-hyperfine -i 'oxidation-compiler check ./demo.ts' 'tsc --pretty demo.ts' >> $GITHUB_STEP_SUMMARY
-echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+echo "typescript (tsgo) demo10"
 
-echo "\`\`\`shell">> $GITHUB_STEP_SUMMARY
-hyperfine -i './stc/target/release/stc test demo.ts' 'tsc --pretty demo.ts' >> $GITHUB_STEP_SUMMARY
-echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+./node_modules/@typescript/native-preview-linux-x64/lib/tsgo --noEmit --jsx preserve --skipLibCheck --diagnostics demo10.tsx || true
 
-echo "\`\`\`shell">> $GITHUB_STEP_SUMMARY
-hyperfine -i 'oxidation-compiler check ./demo.ts' './stc/target/release/stc test demo.ts' 'tsc --pretty demo.ts' >> $GITHUB_STEP_SUMMARY
-echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+echo "comparison demo"
+
+echo "\`\`\`shell" >> "$GITHUB_STEP_SUMMARY"
+        
+hyperfine -N -i './ezno check demo.tsx' './node_modules/@typescript/native-preview-linux-x64/lib/tsgo --noEmit --jsx preserve --skipLibCheck demo.tsx' 'node ./node_modules/typescript/lib/_tsc.js --noEmit --jsx preserve --skipLibCheck demo.tsx' >> "$GITHUB_STEP_SUMMARY"
+
+echo "\`\`\`" >> "$GITHUB_STEP_SUMMARY"
+echo "" >> "$GITHUB_STEP_SUMMARY"
+
+echo "comparison demo10"
+
+echo "\`\`\`shell" >> "$GITHUB_STEP_SUMMARY"
+
+hyperfine -N -i './ezno check demo10.tsx' './node_modules/@typescript/native-preview-linux-x64/lib/tsgo --noEmit --jsx preserve --skipLibCheck demo10.tsx' 'node ./node_modules/typescript/lib/_tsc.js --noEmit --jsx preserve --skipLibCheck demo10.tsx' >> "$GITHUB_STEP_SUMMARY"
+
+echo "\`\`\`" >> "$GITHUB_STEP_SUMMARY"
