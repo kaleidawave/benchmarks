@@ -1,114 +1,23 @@
-echo "::group::Get tools"
-# Install hyperfine
-brew install hyperfine
-sudo apt-get install valgrind
+# CORPUS
 
-gh release download -R andrewrk/poop -p 'x86-linux-*' -O incredible-serious-memory-benchmark-tool
-chmod +x incredible-serious-memory-benchmark-tool
+curl https://gist.githubusercontent.com/kaleidawave/81066f322ed574b3373e27770137013f/raw/b04dcc0bc60e6331008bdd578b98224cc07d5d42/all.tsx > demo.tsx
 
-echo "::endgroup::"
+touch demo10.tsx
 
-# ---
+for i in {1..10}; do
+    cat demo.tsx >> demo10.tsx
+done
 
-echo "::group::Build checkers"
+# TOOLS
 
-echo "::group::Build Ezno (and demo.tsx)"
+# TYPESCRIPT (JS/NODE)
+npm install typescript
 
-rustc --version
-rustup toolchain install stable
+# TYPESCRIPT (GOLANG)
+npm install @typescript/native-preview-linux-x64
 
-# ezno main
-if [ -d "ezno" ]; then
-    cd ezno
-    git init
-    git remote add origin https://github.com/kaleidawave/ezno.git
-    git fetch
-    git checkout origin/general-fixes -ft
-    cd ..
-else
-    git clone https://github.com/kaleidawave/ezno.git ezno -b general-fixes
-fi
-
-cargo build --manifest-path ezno/Cargo.toml --release --bin ezno
-./ezno/target/release/ezno info
-
-# and new parser
-# git clone https://github.com/kaleidawave/ezno.git ezno-next -b merge-lexer
-# cargo build --manifest-path ezno-next/Cargo.toml --release --bin ezno
-# cargo install --path ezno
-# ./ezno/target/release/ezno-next info
-
-echo "::endgroup::"
-
-# ---
-
-echo "::group::Get (old) TSC"
-
-npm i -g typescript
-
-echo "::endgroup"
-
-# ---
-
-echo "::group::Get (new) TSC"
-
-# new tsc
-if [ -d "tsc-go" ]; then
-    cd tsc-go
-    git init
-    git remote add origin https://github.com/microsoft/typescript-go.git
-    git fetch
-    git checkout origin/main -ft
-    cd ..
-else
-    git clone --recurse-submodules https://github.com/microsoft/typescript-go.git tsc-go
-fi
-
-cd tsc-go
-git submodule update --init --recursive
-npm i
-npm run build
-cd ..
-
-echo "::endgroup"
-
-# ---
-
-echo "::endgroup::"
-
-# ---
-
-echo "::group::Build demo files"
-
-cargo run --manifest-path ezno/Cargo.toml \
-    -p ezno-checker-specification \
-    --example amalgamate ezno/checker/specification/specification.md \
-    --comment-headers \
-    --repeat 1 \
-    --out ./demo.ts
-
-cp ./demo.ts $ARTIFACTS_FOLDER
-
-cargo run --manifest-path ezno/Cargo.toml \
-    -p ezno-checker-specification \
-    --example amalgamate ezno/checker/specification/specification.md \
-    --comment-headers \
-    --repeat 40 \
-    --out ./large.ts
-
-cp ./large.ts $ARTIFACTS_FOLDER
-
-# For some reason
-tsc --init
-
-# # Simple
-# echo "const x: string = 4;" >> simple.tsx
-
-# # Large
-# for i in {1..10}; do
-#     cat ./demo.tsx >> ./large.tsx
-# done
-
-# echo "interface Array {}; interface Boolean {}; interface Function {}; interface IArguments {}; interface Number {}; interface Object {}; interface RegExp {}; interface String {}" > overrides.d.ts
-
-echo "::endgroup::"
+# EZNO
+gh run download -R kaleidawave/ezno --pattern binary-LinuxX64-general-fixes-last
+mv binary-LinuxX64-general-fixes-last/binary-LinuxX64-general-fixes-last ezno
+chmod +x ./ezno
+./ezno --help
