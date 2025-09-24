@@ -24,16 +24,17 @@ echo "typescript (tsgo) demo10"
 
 echo "comparison demo"
 
-echo "\`\`\`shell\n" >> "$GITHUB_STEP_SUMMARY"
+echo "\`\`\`shell" >> "$GITHUB_STEP_SUMMARY"
         
 hyperfine -N -i './ezno check demo.tsx' './node_modules/@typescript/native-preview-linux-x64/lib/tsgo --noEmit --jsx preserve --skipLibCheck demo.tsx' 'node ./node_modules/typescript/lib/_tsc.js --noEmit --jsx preserve --skipLibCheck demo.tsx' >> "$GITHUB_STEP_SUMMARY"
 
-echo "\n\`\`\`\n\n" >> "$GITHUB_STEP_SUMMARY"
+echo "\`\`\`" >> "$GITHUB_STEP_SUMMARY"
+echo "" >> "$GITHUB_STEP_SUMMARY"
 
 echo "comparison demo10"
 
-echo "\`\`\`shell\n" >> "$GITHUB_STEP_SUMMARY"
+echo "\`\`\`shell" >> "$GITHUB_STEP_SUMMARY"
 
 hyperfine -N -i './ezno check demo10.tsx' './node_modules/@typescript/native-preview-linux-x64/lib/tsgo --noEmit --jsx preserve --skipLibCheck demo10.tsx' 'node ./node_modules/typescript/lib/_tsc.js --noEmit --jsx preserve --skipLibCheck demo10.tsx' >> "$GITHUB_STEP_SUMMARY"
 
-echo "\n\`\`\`" >> "$GITHUB_STEP_SUMMARY"
+echo "\`\`\`" >> "$GITHUB_STEP_SUMMARY"
