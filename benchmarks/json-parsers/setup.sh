@@ -5,6 +5,8 @@ cargo build
 mv target/debug/depict ..
 cd ..
 
+./depict install 
+
 gh repo clone kaleidawave/simple-json-parser
 cd simple-json-parser
 git checkout improvements
