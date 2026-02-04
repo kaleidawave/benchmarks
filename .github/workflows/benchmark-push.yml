@@ -4,7 +4,7 @@ on:
   push:
     paths:
       - "benchmarks/**"
-      - ".github/workflows/benchmark-push.yml"
+      - ".github/workflows/**"
 
 jobs:
   find-changed-paths:

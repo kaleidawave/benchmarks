@@ -1,0 +1,15 @@
+gh repo clone kaleidawave/depict depict-tool
+cd depict-tool
+git checkout cli-improvements
+cargo build
+mv target/debug/depict ..
+cd ..
+
+./depict install 
+
+gh repo clone kaleidawave/simple-json-parser
+cd simple-json-parser
+git checkout improvements
+cargo b --release --example parse
+mv target/release/examples/parse ..
+cd ..
