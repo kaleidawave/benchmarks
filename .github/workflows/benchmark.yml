@@ -1,8 +1,10 @@
+name: Run benchmarks
+
 on:
   workflow_call:
     inputs:
       benchmarks:
-        description: "paths to benchmarks, comma seperated"
+        description: "paths to benchmarks, JSON array format"
         type: string
         required: true
 
@@ -20,7 +22,6 @@ jobs:
     env:
       cache: true
       ARTIFACTS_FOLDER: artifacts
-      GH_TOKEN: ${{ github.token }}
 
     defaults:
       run:
@@ -29,6 +30,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+
       - name: Set up Homebrew
         id: set-up-homebrew
         uses: Homebrew/actions/setup-homebrew@master
@@ -42,14 +44,30 @@ jobs:
             ~/.cargo/registry/cache/
             ~/.cargo/git/db/
             ~/home/linuxbrew/
-            target/
+            **/target/release/*
+            **/examples/*
+            **/built/local/*
+            **/Cargo.toml
           key: ${{ runner.os }}-${{ hashFiles('**/Cargo.lock', 'run.sh') }}
 
-      - run: mkdir -p ${{ env.ARTIFACTS_FOLDER }}
-      - name: Make executable
+      - uses: kaleidawave/release-downloader@improvements
+        with: { 'items': 'sharkdp/hyperfine@v1.19.0' }
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      # - run: mkdir -p ${{ env.ARTIFACTS_FOLDER }}
+
+      - name: Make executables executable
         run: |
-          # run.sh might not be executable
+          # run.sh and setup.sh might not be executable
           chmod +x run.sh
+          chmod +x setup.sh
+
+      - name: Run setup
+        run: ./setup.sh
+        env:
+          # May use GH to download assets
+          GH_TOKEN: ${{ github.token }}
 
       - name: Run benchmark
         run: ./run.sh
